@@ -1,0 +1,4 @@
+parameters:
+  external_dns:
+    =_metadata: {}
+    namespace: syn-external-dns

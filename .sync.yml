@@ -1,0 +1,7 @@
+:global:
+  componentName: external-dns
+  githubUrl: https://github.com/projectsyn/component-external-dns
+
+docs/antora.yml:
+  name: external-dns
+  title: external-dns

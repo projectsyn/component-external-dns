@@ -1,0 +1,5 @@
+= external-dns
+
+external-dns is a Commodore component to manage external-dns.
+
+See the xref:references/parameters.adoc[parameters] reference for further details.
