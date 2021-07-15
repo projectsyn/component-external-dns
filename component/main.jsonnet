@@ -46,15 +46,47 @@ local azuresecret = kube.Secret('azure-config-file') {
     namespace: params.namespace
   },
   stringData+: {
-    "azure.json": {
-      tenantId: params.providerConfig.azure.authentication.tenantId,
-      subscriptionId: params.providerConfig.azure.authentication.subscriptionId,
-      resourceGroup: params.providerConfig.azure.authentication.resourceGroup,
-      aadClientId: params.providerConfig.azure.authentication.aadClientId,
-      aadClientSecret: params.providerConfig.azure.authentication.aadClientSecret,
-    },
+    "azure.json": "{
+      tenantId: " + params.providerConfig.azure.authentication.tenantId +",
+      subscriptionId: " + params.providerConfig.azure.authentication.subscriptionId +",
+      resourceGroup: " + params.providerConfig.azure.authentication.resourceGroup +",
+      aadClientId: " + params.providerConfig.azure.authentication.aadClientId +",
+      aadClientSecret: " + params.providerConfig.azure.authentication.aadClientSecret +"
+    }",
   },
 };
+
+
+local mountVolumes = 
+  if params.provider == "azure" then
+    [
+     {
+       name: "azure-config-file",
+       mountPath: "/etc/kubernetes",
+       readOnly: true
+     },
+    ]
+  else [];
+
+local volumes = 
+  if params.provider == "azure" then
+    [
+     {
+       name: "azure-config-file",
+       secret: {
+         secretName: azuresecret.metadata.name,
+         items: [
+           {
+             key:"externaldns-config.json",
+             path: "azure.json",
+           },
+         ]
+         ,
+       },
+     },
+    ]
+  else [];
+
 
 local deployment = kube.Deployment('external-dns') {
   metadata+: {
@@ -71,20 +103,21 @@ local deployment = kube.Deployment('external-dns') {
           'external-dns': kube.Container('external-dns') {
             image: params.images.externaldns.registry + '/' + params.images.externaldns.image + ':' + params.images.externaldns.tag,
             imagePullPolicy: 'Always',
-            args: [
+            args: std.prune([
               "--provider=" + params.provider,
               "--source=ingress",
-              if params.config.domainFilter != "" then "--domain-filter=" + params.config.domainFilter,
-              if params.config.txtPrefix != "" then "--txt-record=" + params.config.txtPrefix,
-            ],
+              if params.config.domainFilter != "" then "--domain-filter=" + params.config.domainFilter else null,
+              if params.config.txtPrefix != "" then "--txt-record=" + params.config.txtPrefix else null,
+              if params.provider == "azure" && params.providerConfig.azure.resourceGroup != "" then "--azure-resource-group=" + params.providerConfig.azure.resourceGroup else null,
+            ]),
+            volumeMounts: mountVolumes,
           },
         },
+        serviceAccountName: serviceaccount.metadata.name,
+        volumes: volumes,
       },
-      serviceAccountName: serviceaccount.metadata.name,
     },
-  
   },
-
 };
 
 // Define outputs below

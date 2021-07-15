@@ -20,7 +20,7 @@ parameters:
           resourceGroup: ""
           aadClientId: ""
           aadClientSecret: ""
-        resource-group: ""
+        resourceGroup: ""
 
     config:
       source: "ingress"
