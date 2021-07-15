@@ -1,6 +1,6 @@
 # Commodore Component: external-dns
 
-This is a [Commodore][commodore] Component for external-dns.
+This is a [Commodore][commodore] Component for [external-dns](https://github.com/kubernetes-sigs/external-dns).
 
 This repository is part of Project Syn.
 For documentation on Project Syn and this component, see https://syn.tools.

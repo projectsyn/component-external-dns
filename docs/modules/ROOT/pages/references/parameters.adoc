@@ -10,6 +10,45 @@ default:: `syn-external-dns`
 
 The namespace in which to deploy this component.
 
+== `provider`
+
+[horizontal]
+type:: string
+default:: `azure`
+
+The Provider to use
+
+== `providerConfig.azure`
+
+[horizontal]
+type:: dict
+default:: `azure`
+
+Azure Provider specific configuration. See defaults.yml
+
+== `config.source`
+
+[horizontal]
+type:: string
+default:: `ingress`
+
+The source from where external-dns gets the records to insert into the DNS Zone
+
+== `config.txtPrefix`
+
+[horizontal]
+type:: string
+default:: `externaldns-`
+
+Prefix for txt records which are used by external-dns for marking ownership of DNS Records
+
+== `config.domainFilter`
+
+[horizontal]
+type:: string
+default:: ``
+
+limit to only the selected domains
 
 == Example
 
