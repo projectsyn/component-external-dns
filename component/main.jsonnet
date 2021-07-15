@@ -7,9 +7,14 @@ local params = inv.parameters.external_dns;
 
 local namespace = kube.Namespace(params.namespace);
 
-local service_account = kube.ServiceAccount('external-dns');
+local serviceaccount = kube.ServiceAccount('external-dns') {
+  metadata+: {
+    namespace: params.namespace,
+  },
+};
 
-local cluster_role = kube.ClusterRole('external-dns') {
+
+local clusterrole = kube.ClusterRole('external-dns') {
   rules: [
    {
     apiGroups: [''],
@@ -30,12 +35,13 @@ local cluster_role = kube.ClusterRole('external-dns') {
 };
 
 
-local cluster_role_binding = kube.ClusterRoleBinding('external-dns');
+local clusterrolebinding = kube.ClusterRoleBinding('external-dns') {
+  roleRef_: clusterrolebinding,
+  subjects_: [serviceaccount],
+};
 
-
-// Provider specific configuration
-
-local azure_secret = kube.Secret('azure-config-file') {
+// https://github.com/kubernetes-sigs/external-dns/blob/master/docs/tutorials/azure.md#creating-configuration-file
+local azuresecret = kube.Secret('azure-config-file') {
   metadata+: {
     namespace: params.namespace
   },
@@ -53,27 +59,28 @@ local azure_secret = kube.Secret('azure-config-file') {
 local deployment = kube.Deployment('external-dns') {
   metadata+: {
     namespace: params.namespace,
-    labels {
+    labels: {
       'app.kubernetes.io/name': 'external-dns',
       'app.kubernetes.io/managed-by': 'syn',
     },
   },
   spec+: {
     template+: {
-      containers_+: {
-        'external-dns': kubeContainer('external-dns') {
-          image: params.images.external-dns.registry + '/' + params.images.external-dns.image + ':' + params.images.external-dns.tag,
-          imagePullPolicy: 'Always'
-          args: [
-            "--provider=" + params.provider,
-            "--source=ingress",
-            [if params.config.domain-filter != "" then "--domain-filter=" + params.config.domain-filter ,]
-            ""
-          ],
+      spec+: {
+        containers_+: {
+          'external-dns': kube.Container('external-dns') {
+            image: params.images.externaldns.registry + '/' + params.images.externaldns.image + ':' + params.images.externaldns.tag,
+            imagePullPolicy: 'Always',
+            args: [
+              "--provider=" + params.provider,
+              "--source=ingress",
+              if params.config.domainFilter != "" then "--domain-filter=" + params.config.domainFilter,
+              if params.config.txtPrefix != "" then "--txt-record=" + params.config.txtPrefix,
+            ],
+          },
         },
-      
       },
-      serviceAccountName: service_account.metadata.name
+      serviceAccountName: serviceaccount.metadata.name,
     },
   
   },
@@ -83,9 +90,9 @@ local deployment = kube.Deployment('external-dns') {
 // Define outputs below
 {
   '00_namespace': namespace,
-  '09_serviceaccount': service_account,
-  '10_cluster_role': cluster_role,
-  '11_cluster_role_binding': cluster_role_binding,
-  '12_deployment': deployment
-  [if params.provider == "azure"] '20_azure_secret', azure_secret
+  '09_serviceaccount': serviceaccount,
+  '10_cluster_role': clusterrole,
+  '11_cluster_role_binding': clusterrolebinding,
+  '12_deployment': deployment,
+  [if params.provider == "azure" then '20_azure_secret']: azuresecret
 }
