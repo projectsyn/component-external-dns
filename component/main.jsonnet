@@ -46,7 +46,7 @@ local azuresecret = kube.Secret('azure-config-file') {
   },
   stringData+: {
     //'azure.json': '{\n      tenantId: ' + params.providerConfig.azure.authentication.tenantId + ',\n      subscriptionId: ' + params.providerConfig.azure.authentication.subscriptionId + ',\n      resourceGroup: ' + params.providerConfig.azure.authentication.resourceGroup + ',\n      aadClientId: ' + params.providerConfig.azure.authentication.aadClientId + ',\n      aadClientSecret: ' + params.providerConfig.azure.authentication.aadClientSecret + '\n    }',
-    'azure.json' : std.manifestJsonEx(params.providerConfig.azure.authentication,"  ")
+    'azure.json': std.manifestJsonEx(params.providerConfig.azure.authentication, '  '),
   },
 };
 
