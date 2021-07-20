@@ -18,6 +18,8 @@ default:: `${facts:cloud}`
 
 The Provider to use. See https://github.com/kubernetes-sigs/external-dns for the supported providers.
 
+This component currently only supports the `azure` provider.
+
 == `providerConfig.azure.authentication.tenantId`
 
 [horizontal]
