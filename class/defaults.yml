@@ -2,3 +2,26 @@ parameters:
   external_dns:
     =_metadata: {}
     namespace: syn-external-dns
+
+    images:
+      externaldns:
+        registry: k8s.gcr.io
+        image: external-dns
+        tag: v0.8.0
+
+    provider: ${facts:cloud}
+
+    providerConfig:
+      azure:
+        authentication: #https://github.com/kubernetes-sigs/external-dns/blob/master/docs/tutorials/azure.md#creating-configuration-file
+          tenantId: ""
+          subscriptionId: ""
+          resourceGroup: ""
+          aadClientId: ""
+          aadClientSecret: ""
+        resourceGroup: ""
+
+    config:
+      source: "ingress"
+      txtPrefix: "externaldns-"
+      domainFilter: ""

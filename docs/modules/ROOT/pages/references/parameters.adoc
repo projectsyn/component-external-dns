@@ -10,6 +10,88 @@ default:: `syn-external-dns`
 
 The namespace in which to deploy this component.
 
+== `provider`
+
+[horizontal]
+type:: string
+default:: `${facts:cloud}`
+
+The Provider to use. See https://github.com/kubernetes-sigs/external-dns for the supported providers.
+
+This component currently only supports the `azure` provider.
+
+== `providerConfig.azure.authentication.tenantId`
+
+[horizontal]
+type:: dict
+default:: ``
+
+Azure tenant id to be used for authentication. See https://github.com/kubernetes-sigs/external-dns/blob/master/docs/tutorials/azure.md#creating-configuration-file
+
+== `providerConfig.azure.authentication.subscriptionId`
+
+[horizontal]
+type:: dict
+default:: ``
+
+Azure subscription id to be used for authentication. See https://github.com/kubernetes-sigs/external-dns/blob/master/docs/tutorials/azure.md#creating-configuration-file
+
+== `providerConfig.azure.authentication.resourceGroup`
+
+[horizontal]
+type:: dict
+default:: ``
+
+Azure resourcegroup to be used for authentication. See https://github.com/kubernetes-sigs/external-dns/blob/master/docs/tutorials/azure.md#creating-configuration-file
+
+== `providerConfig.azure.authentication.aadClientId`
+
+[horizontal]
+type:: dict
+default:: ``
+
+Azure Service Principal Client ID to be used for authentication. See https://github.com/kubernetes-sigs/external-dns/blob/master/docs/tutorials/azure.md#creating-configuration-file
+
+== `providerConfig.azure.authentication.aadClientSecret`
+
+[horizontal]
+type:: dict
+default:: ``
+
+Azure Service Principal Client Secret to be used for authentication. See https://github.com/kubernetes-sigs/external-dns/blob/master/docs/tutorials/azure.md#creating-configuration-file
+
+== `providerConfig.azure.resourceGroup`
+
+[horizontal]
+type:: dict
+default:: ``
+
+Azure Resource Group where DNS zones are.
+
+
+== `config.source`
+
+[horizontal]
+type:: string
+default:: `ingress`
+
+The source from where external-dns gets the records to insert into the DNS zone.
+
+== `config.txtPrefix`
+
+[horizontal]
+type:: string
+default:: `externaldns-`
+
+Prefix for txt records which are used by external-dns for marking ownership of DNS records.
+
+== `config.domainFilter`
+
+[horizontal]
+type:: string
+default:: ``
+
+Limit to only the selected domains.
 
 == Example
 
