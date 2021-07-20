@@ -70,7 +70,7 @@ local volumes =
           secretName: azuresecret.metadata.name,
           items: [
             {
-              key: 'externaldns-config.json',
+              key: 'azure.json',
               path: 'azure.json',
             },
           ],
