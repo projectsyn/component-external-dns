@@ -32,7 +32,7 @@ Azure Provider specific configuration. See defaults.yml
 type:: string
 default:: `ingress`
 
-The source from where external-dns gets the records to insert into the DNS Zone
+The source from where external-dns gets the records to insert into the DNS zone.
 
 == `config.txtPrefix`
 
@@ -40,7 +40,7 @@ The source from where external-dns gets the records to insert into the DNS Zone
 type:: string
 default:: `externaldns-`
 
-Prefix for txt records which are used by external-dns for marking ownership of DNS Records
+Prefix for txt records which are used by external-dns for marking ownership of DNS records.
 
 == `config.domainFilter`
 
@@ -48,7 +48,7 @@ Prefix for txt records which are used by external-dns for marking ownership of D
 type:: string
 default:: ``
 
-limit to only the selected domains
+Limit to only the selected domains.
 
 == Example
 

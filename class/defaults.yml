@@ -9,7 +9,6 @@ parameters:
         image: external-dns
         tag: v0.8.0
 
-
     provider: azure
 
     providerConfig:

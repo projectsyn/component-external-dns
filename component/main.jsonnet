@@ -13,7 +13,6 @@ local serviceaccount = kube.ServiceAccount('external-dns') {
   },
 };
 
-
 local clusterrole = kube.ClusterRole('external-dns') {
   rules: [
     {
@@ -50,7 +49,6 @@ local azuresecret = kube.Secret('azure-config-file') {
   },
 };
 
-
 local mountVolumes =
   if params.provider == 'azure' then
     [
@@ -79,7 +77,6 @@ local volumes =
       },
     ]
   else [];
-
 
 local deployment = kube.Deployment('external-dns') {
   metadata+: {
