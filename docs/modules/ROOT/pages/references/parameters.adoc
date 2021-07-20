@@ -14,17 +14,58 @@ The namespace in which to deploy this component.
 
 [horizontal]
 type:: string
-default:: `azure`
+default:: `${facts:cloud}`
 
-The Provider to use
+The Provider to use. See https://github.com/kubernetes-sigs/external-dns for the supported providers.
 
-== `providerConfig.azure`
+== `providerConfig.azure.authentication.tenantId`
 
 [horizontal]
 type:: dict
-default:: `azure`
+default:: ``
 
-Azure Provider specific configuration. See defaults.yml
+Azure tenant id to be used for authentication. See https://github.com/kubernetes-sigs/external-dns/blob/master/docs/tutorials/azure.md#creating-configuration-file
+
+== `providerConfig.azure.authentication.subscriptionId`
+
+[horizontal]
+type:: dict
+default:: ``
+
+Azure subscription id to be used for authentication. See https://github.com/kubernetes-sigs/external-dns/blob/master/docs/tutorials/azure.md#creating-configuration-file
+
+== `providerConfig.azure.authentication.resourceGroup`
+
+[horizontal]
+type:: dict
+default:: ``
+
+Azure resourcegroup to be used for authentication. See https://github.com/kubernetes-sigs/external-dns/blob/master/docs/tutorials/azure.md#creating-configuration-file
+
+== `providerConfig.azure.authentication.aadClientId`
+
+[horizontal]
+type:: dict
+default:: ``
+
+Azure Service Principal Client ID to be used for authentication. See https://github.com/kubernetes-sigs/external-dns/blob/master/docs/tutorials/azure.md#creating-configuration-file
+
+== `providerConfig.azure.authentication.aadClientSecret`
+
+[horizontal]
+type:: dict
+default:: ``
+
+Azure Service Principal Client Secret to be used for authentication. See https://github.com/kubernetes-sigs/external-dns/blob/master/docs/tutorials/azure.md#creating-configuration-file
+
+== `providerConfig.azure.resourceGroup`
+
+[horizontal]
+type:: dict
+default:: ``
+
+Azure Resource Group where DNS zones are.
+
 
 == `config.source`
 
