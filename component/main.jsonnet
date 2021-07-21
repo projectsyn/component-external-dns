@@ -98,7 +98,7 @@ local deployment = kube.Deployment('external-dns') {
               '--provider=' + params.provider,
               '--source=ingress',
               if params.config.domainFilter != '' then '--domain-filter=' + params.config.domainFilter else null,
-              if params.config.txtPrefix != '' then '--txt-record=' + params.config.txtPrefix else null,
+              if params.config.txtPrefix != '' then '--txt-prefix=' + params.config.txtPrefix else null,
               if params.provider == 'azure' && params.providerConfig.azure.resourceGroup != '' then '--azure-resource-group=' + params.providerConfig.azure.resourceGroup else null,
             ]),
             volumeMounts: mountVolumes,
