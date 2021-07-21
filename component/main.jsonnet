@@ -35,7 +35,7 @@ local clusterrole = kube.ClusterRole('external-dns') {
 
 
 local clusterrolebinding = kube.ClusterRoleBinding('external-dns') {
-  roleRef_: clusterrolebinding,
+  roleRef_: clusterrole,
   subjects_: [ serviceaccount ],
 };
 
