@@ -18,10 +18,11 @@ parameters:
 
     providerConfig:
       azure:
+        resourceGroup: "" # Azure Resource Group where DNS zones are.
         authentication
-          tenantId: ""
-          subscriptionId: ""
-          resourceGroup: ""
-          aadClientId: ""
-          aadClientSecret: ""
+          tenantId: "" # Azure tenant id to be used for authentication.
+          subscriptionId: "" # Azure subscription id to be used for authentication
+          resourceGroup: "" # Azure resourcegroup to be used for authentication
+          aadClientId: "" # Azure Service Principal Client Id to be used for authentication.
+          aadClientSecret: "" # Azure Service Principal Client Secret to be used for authentication.
 ```

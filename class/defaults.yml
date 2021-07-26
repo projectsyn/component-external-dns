@@ -11,15 +11,7 @@ parameters:
 
     provider: ${facts:cloud}
 
-    providerConfig:
-      azure:
-        authentication: #https://github.com/kubernetes-sigs/external-dns/blob/master/docs/tutorials/azure.md#creating-configuration-file
-          tenantId: ""
-          subscriptionId: ""
-          resourceGroup: ""
-          aadClientId: ""
-          aadClientSecret: ""
-        resourceGroup: ""
+    providerConfig: {}
 
     config:
       source: "ingress"
