@@ -1,7 +1,7 @@
 = Provider Azure
 
 This guide covers how to use the Azure provider.
-It is based on the https://github.com/kubernetes-sigs/external-dns/blob/master/docs/tutorials/azure.md[external-dns Azure] documentation.
+It's based on the https://github.com/kubernetes-sigs/external-dns/blob/master/docs/tutorials/azure.md[external-dns Azure] documentation.
 
 
 == Use Azure DNS Provider
