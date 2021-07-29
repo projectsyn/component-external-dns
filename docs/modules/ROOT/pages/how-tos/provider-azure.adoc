@@ -1,6 +1,7 @@
 = Provider Azure
 
-This guide covers how to use the azure provider and is based on the [external-dns Azure](https://github.com/kubernetes-sigs/external-dns/blob/master/docs/tutorials/azure.md) documentation.
+This guide covers how to use the Azure provider.
+It's based on the https://github.com/kubernetes-sigs/external-dns/blob/master/docs/tutorials/azure.md[external-dns Azure] documentation.
 
 
 == Use Azure DNS Provider
@@ -17,9 +18,12 @@ parameters:
     provider: azure
 
     providerConfig:
-      tenantId: ""
-      subscriptionId: ""
-      resourceGroup: ""
-      aadClientId: ""
-      aadClientSecret: ""
+      azure:
+        resourceGroup: "" # Azure Resource Group where DNS zones are.
+        authentication:
+          tenantId: "" # Azure tenant id to be used for authentication.
+          subscriptionId: "" # Azure subscription id to be used for authentication
+          resourceGroup: "" # Azure resourcegroup to be used for authentication
+          aadClientId: "" # Azure Service Principal Client Id to be used for authentication.
+          aadClientSecret: "" # Azure Service Principal Client Secret to be used for authentication.
 ```
