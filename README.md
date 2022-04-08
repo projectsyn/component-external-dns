@@ -1,3 +1,7 @@
+# ⚠️ Repo Archive Notice
+
+As of Apr 8, 2022, this component will no longer be updated.
+
 # Commodore Component: external-dns
 
 This is a [Commodore][commodore] Component for [external-dns](https://github.com/kubernetes-sigs/external-dns).
